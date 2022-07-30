@@ -1,5 +1,4 @@
 {% set page_title = 'Search - ' ~ wiki_title %}{% include '_header.html' %}
-  </head>
   <style> <!-- TODO: move this to a CSS file -->
     ul#resList{list-style-position: inside;margin-left:3em;}
     li.item{list-style:none; padding:5px;}
@@ -28,5 +27,8 @@
     </section>
     {% include '_footer.html' %}
     <script>{% include '_javascript.html' %}</script>
+<!-- uncomment to add Hypothes.is
+    <script src="https://hypothes.is/embed.js" async></script>
+-->
   </body>
 </html>
