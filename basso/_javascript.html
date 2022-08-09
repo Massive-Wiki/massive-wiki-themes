@@ -1,4 +1,56 @@
+// ensure DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+
+  ////////////////////////////////////////////////////////////////
+  // MWB Search helpers
+  ////////////////////////////////////////////////////////////////
+
+  function doSearch() {
+    let searchString=document.getElementById("inputID").value;
+    var ul = document.createElement('ul');
+    ul.setAttribute('id','resList');
+    const searchResultList = index.search(searchString).map((item) => {
+      return lunr_posts.find((post) => item.ref === post.link)
+    })
+    render_list = document.getElementById('renderList');
+    // clear any previous results
+    removeAllChildNodes(render_list);
+    render_list.appendChild(ul);
+    searchResultList.forEach(renderResultList);
+  }
+
+  // set a single result
+  function renderResultList(element, index, arr) {
+    var anchor = document.createElement('a');
+    anchor.append(document.createTextNode(`${element.title}`));
+    anchor.setAttribute('class', 'wikilink');
+    anchor.setAttribute('href',`${element.link}`);
+    anchor.setAttribute('target', '_blank');
+    var li = document.createElement('li');
+    li.setAttribute('class','item');
+    li.append(anchor);
+    ul.append(li);
+  }
+
+  // search on Enter
+  var input_id = document.getElementById('inputID')
+  input_id.addEventListener('keypress', function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("searchButton").click();
+    }
+  });
+
+  // helper to clear previous search results
+  function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////
+  // Bulma navbar helpers
+  ////////////////////////////////////////////////////////////////
 
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
