@@ -41,6 +41,9 @@
 	removeAllChildNodes(render_list);
 	render_list.appendChild(ul);
 	searchResultList.forEach(renderResultList);
+        if (ul.childNodes.length == 0) {
+          render_list.append('No results for "' + searchString + '"')
+	}
 
 	// helper to set a single result (in scope of doSearch())
 	function renderResultList(element, index, arr) {
